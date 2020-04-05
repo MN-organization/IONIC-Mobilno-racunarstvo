@@ -1,0 +1,14 @@
+<ion-card>
+  <ion-slides pager="true">
+    <ion-slide *ngFor="let slicica of oglas.slika">
+      <img [src]="slicica"/>
+    </ion-slide>
+  </ion-slides>
+  <ion-card-header>
+    <ion-card-title>{{oglas.naslov}}</ion-card-title>
+    <ion-card-subtitle>{{oglas.godiste}}. / {{oglas.kilometraza}} km</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    {{oglas.cena}} €
+  </ion-card-content>
+</ion-card>

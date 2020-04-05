@@ -14,11 +14,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "www",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
@@ -31,7 +26,15 @@
                 "output": "./svg"
               }
             ],
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "outputPath": "www",
+            "polyfills": "src/polyfills.ts",
+            "scripts": [],
             "styles": [
+              {
+                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              },
               {
                 "input": "src/theme/variables.scss"
               },
@@ -39,7 +42,7 @@
                 "input": "src/global.scss"
               }
             ],
-            "scripts": []
+            "tsConfig": "tsconfig.app.json"
           },
           "configurations": {
             "production": {

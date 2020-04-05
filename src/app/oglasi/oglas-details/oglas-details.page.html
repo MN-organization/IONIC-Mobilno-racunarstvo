@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/oglasi">
+      </ion-back-button>
+<!--      <ion-menu-button></ion-menu-button>-->
+    </ion-buttons>
+    <ion-title>
+      Prodaja automobila MN
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides pager="true">
+    <ion-slide *ngFor="let slicica of oglas.slika">
+      <img [src]="slicica"/>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{oglas.naslov}}</ion-card-title>
+      <ion-card-subtitle>{{oglas.opis}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col>Cena:</ion-col>
+        <ion-col>{{oglas.cena}} €</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Kilometraza:</ion-col>
+        <ion-col>{{oglas.kilometraza}} km</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Kubikaza:</ion-col>
+        <ion-col>{{oglas.kubikaza}} ccm</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Godina proizvodnje:</ion-col>
+        <ion-col>{{oglas.godiste}} god</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Vrsta goriva:</ion-col>
+        <ion-col>{{oglas.vrstaGoriva}} ccm</ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
