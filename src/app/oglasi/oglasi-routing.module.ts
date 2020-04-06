@@ -9,6 +9,10 @@ const routes: Routes = [
     component: OglasiPage
   },
   {
+    path: 'dodaj-oglas',
+    loadChildren: () => import('./dodaj-oglas/dodaj-oglas.module').then( m => m.DodajOglasPageModule)
+  },
+  {
     path: ':id',
     loadChildren: () => import('./oglas-details/oglas-details.module').then( m => m.OglasDetailsPageModule)
   }

@@ -1,0 +1,130 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Prodaja automobila MN
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+                <form (ngSubmit)="onSubmit()" #f="ngForm">
+                    <ion-item>
+                        <ion-label position="floating">Naslov oglasa:</ion-label>
+                        <ion-input
+                                type="text"
+                                id="naslov"
+                                ngModel
+                                name="naslov"
+                                required
+                                ></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Marka</ion-label>
+                        <ion-select value="notifications" interface="action-sheet" ngModel name="marka">
+                            <ion-select-option *ngFor="let marka of marke">{{marka.naziv}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Modeli</ion-label>
+                        <ion-select value="notifications" interface="action-sheet" ngModel name="model">
+                            <ion-select-option *ngFor="let marka of marke" >{{marka.naziv}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Vrsta goriva</ion-label>
+                        <ion-select value="notifications" interface="action-sheet" ngModel name="gorivo">
+                            <ion-select-option *ngFor="let goriv of gorivo">{{goriv}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <div class="form-group">
+                      <textarea
+                        name="opis"
+                        rows="3"
+                        class="form-control"
+                        ngModel
+                        placeholder="Opis"></textarea>
+                    </div>
+
+                    <ion-item>
+                        <ion-label position="floating">Cena:</ion-label>
+                        <ion-input
+                                type="number"
+                                id="cena"
+                                ngModel
+                                name="cena"
+                                required
+                        ></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                    <ion-label position="floating">Kilometraza:</ion-label>
+                    <ion-input
+                            type="number"
+                            id="km"
+                            ngModel
+                            name="km"
+                            required
+                    ></ion-input>
+                </ion-item>
+                    <ion-item>
+                    <ion-label position="floating">Zapremina motora:</ion-label>
+                    <ion-input
+                            type="number"
+                            id="ccm"
+                            ngModel
+                            name="ccm"
+                            required
+                    ></ion-input>
+                </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Snaga motora:</ion-label>
+                        <ion-input
+                                type="number"
+                                id="ks"
+                                ngModel
+                                name="ks"
+                                required
+                        ></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Godiste</ion-label>
+                        <ion-select value="notifications" interface="action-sheet" ngModel name="godiste">
+                            <ion-select-option *ngFor="let god of godista">{{god}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+
+                    <ion-radio-group ngModel name="menjac">
+                        <ion-list-header>
+                            <ion-label>Vrsta menjaca:</ion-label>
+                        </ion-list-header>
+                        <ion-item *ngFor="let menjac of menjaci">
+                            <ion-label>{{menjac}}</ion-label>
+                            <ion-radio slot="start" color="primary" value="{{menjac}}"></ion-radio>
+                        </ion-item>
+                    </ion-radio-group>
+                    <ion-item>
+                        <ion-label position="floating">Slika:</ion-label>
+                        <ion-input
+                                type="text"
+                                id="slika"
+                                ngModel
+                                name="slika"
+                                required
+                        ></ion-input>
+                    </ion-item>
+                    <ion-button expand="full"
+                            type="submit"
+                            [disabled]="!f.valid">Postavi oglas
+                    </ion-button>
+                </form>
+            </div>
+        </div>
+    </div>
+</ion-content>

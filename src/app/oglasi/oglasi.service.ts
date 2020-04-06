@@ -92,4 +92,9 @@ export class OglasiService {
     return this.listaOglasa[id];
   }
 
+  addOglas(oglas: OglasModel) {
+    oglas.id = this.listaOglasa.length;
+    this.listaOglasa.push(oglas);
+  }
+
 }
