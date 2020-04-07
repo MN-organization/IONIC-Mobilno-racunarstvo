@@ -12,39 +12,56 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides pager="true">
-    <ion-slide *ngFor="let slicica of oglas.slika">
-      <img [src]="slicica"/>
-    </ion-slide>
-  </ion-slides>
+    <ion-grid>
+        <ion-row>
+            <ion-col push-lg="3" sizeLg="6" push-md="2" sizeMd="8" sizeXs="12">
+                <ion-slides pager="true">
+                    <ion-slide *ngFor="let slicica of oglas.slika">
+                        <img [src]="slicica"/>
+                    </ion-slide>
+                </ion-slides>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{oglas.naslov}}</ion-card-title>
-      <ion-card-subtitle>{{oglas.opis}}</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-row>
-        <ion-col>Cena:</ion-col>
-        <ion-col>{{oglas.cena}} €</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Kilometraza:</ion-col>
-        <ion-col>{{oglas.kilometraza}} km</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Kubikaza:</ion-col>
-        <ion-col>{{oglas.kubikaza}} ccm</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Godina proizvodnje:</ion-col>
-        <ion-col>{{oglas.godiste}} god</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Vrsta goriva:</ion-col>
-        <ion-col>{{oglas.vrstaGoriva}}</ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
-
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>{{oglas.naslov}}</ion-card-title>
+                        <ion-card-subtitle>{{oglas.opis}}</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-row>
+                            <ion-col>Marka:</ion-col>
+                            <ion-col>{{oglas.marka}}</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>Model:</ion-col>
+                            <ion-col>{{oglas.model}}</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>Cena:</ion-col>
+                            <ion-col>{{oglas.cena}} €</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>Kilometraza:</ion-col>
+                            <ion-col>{{oglas.kilometraza}} km</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>Godina proizvodnje:</ion-col>
+                            <ion-col>{{oglas.godiste}} god</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>Kubikaza:</ion-col>
+                            <ion-col>{{oglas.kubikaza}} ccm</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>Vrsta goriva:</ion-col>
+                            <ion-col>{{oglas.vrstaGoriva}}</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>Menjac:</ion-col>
+                            <ion-col>{{oglas.menjac}}</ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
