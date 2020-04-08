@@ -22,19 +22,22 @@
                                 ngModel
                                 name="naslov"
                                 required
-                                ></ion-input>
+                        ></ion-input>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>Marka</ion-label>
-                        <ion-select value="notifications" interface="action-sheet" ngModel name="marka">
-                            <ion-select-option *ngFor="let marka of marke">{{marka.naziv}}</ion-select-option>
+                        <ion-select value="notifications" interface="action-sheet" ngModel name="marka" required (ionChange)="onSelektovanaMarka($event)"
+                                    #marka="ngModel">
+                            <ion-select-option *ngFor="let marka of marke;let i=index"
+                                               >{{marka.naziv}}</ion-select-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
                         <ion-label>Modeli</ion-label>
-                        <ion-select value="notifications" interface="action-sheet" ngModel name="model">
-                            <ion-select-option *ngFor="let marka of marke" >{{marka.naziv}}</ion-select-option>
+                        <ion-select value="notifications" interface="action-sheet" ngModel name="model" required
+                                    [disabled]="marka.invalid">
+                            <ion-select-option *ngFor="let model of selectedMarke">{{model}}</ion-select-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
@@ -45,11 +48,11 @@
                     </ion-item>
                     <div class="form-group">
                       <textarea
-                        name="opis"
-                        rows="3"
-                        class="form-control"
-                        ngModel
-                        placeholder="Opis"></textarea>
+                              name="opis"
+                              rows="3"
+                              class="form-control"
+                              ngModel
+                              placeholder="Opis"></textarea>
                     </div>
 
                     <ion-item>
@@ -64,25 +67,25 @@
                     </ion-item>
 
                     <ion-item>
-                    <ion-label position="floating">Kilometraza:</ion-label>
-                    <ion-input
-                            type="number"
-                            id="km"
-                            ngModel
-                            name="km"
-                            required
-                    ></ion-input>
-                </ion-item>
+                        <ion-label position="floating">Kilometraza:</ion-label>
+                        <ion-input
+                                type="number"
+                                id="km"
+                                ngModel
+                                name="km"
+                                required
+                        ></ion-input>
+                    </ion-item>
                     <ion-item>
-                    <ion-label position="floating">Zapremina motora:</ion-label>
-                    <ion-input
-                            type="number"
-                            id="ccm"
-                            ngModel
-                            name="ccm"
-                            required
-                    ></ion-input>
-                </ion-item>
+                        <ion-label position="floating">Zapremina motora:</ion-label>
+                        <ion-input
+                                type="number"
+                                id="ccm"
+                                ngModel
+                                name="ccm"
+                                required
+                        ></ion-input>
+                    </ion-item>
                     <ion-item>
                         <ion-label position="floating">Snaga motora:</ion-label>
                         <ion-input
@@ -120,8 +123,8 @@
                         ></ion-input>
                     </ion-item>
                     <ion-button expand="full"
-                            type="submit"
-                            [disabled]="!f.valid">Postavi oglas
+                                type="submit"
+                                [disabled]="!f.valid">Postavi oglas
                     </ion-button>
                 </form>
             </div>
