@@ -1,25 +1,26 @@
 <ion-app>
-  <ion-menu side="start" menuId="first" contentId="main">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>MN prodaja automobila</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-menu-toggle>
-        <ion-list>
-          <ion-item [routerLink]="['/']">Početna</ion-item>
-          <ion-item>Pretraga</ion-item>
-          <ion-item [routerLink]="['/', 'oglasi', 'dodaj-oglas']" >Dodaj oglas</ion-item>
-          <ion-item>Moji oglasi</ion-item>
-          <ion-item>Sacuvani oglasi</ion-item>
-          <ion-item>O nama</ion-item>
-          <ion-item>Podesavanja</ion-item>
-          <ion-item>Log out</ion-item>
-        </ion-list>
-      </ion-menu-toggle>
-    </ion-content>
-  </ion-menu>
+    <ion-menu side="start" menuId="first" contentId="main">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <ion-title>MN prodaja automobila</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-menu-toggle>
+                <ion-list>
+                    <ion-item [routerLink]="['/']">Početna</ion-item>
+                    <ion-item
+                    [routerLink]="['/','oglasi','pretraga']"> Pretraga</ion-item>
+                    <ion-item [routerLink]="['/', 'oglasi', 'dodaj-oglas']">Dodaj oglas</ion-item>
+                    <ion-item>Moji oglasi</ion-item>
+                    <ion-item>Sacuvani oglasi</ion-item>
+                    <ion-item>O nama</ion-item>
+                    <ion-item>Podesavanja</ion-item>
+                    <ion-item>Log out</ion-item>
+                </ion-list>
+            </ion-menu-toggle>
+        </ion-content>
+    </ion-menu>
 
-  <ion-router-outlet id="main"></ion-router-outlet>
+    <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

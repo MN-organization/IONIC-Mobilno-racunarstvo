@@ -11,6 +11,9 @@ const routes: Routes = [
   {
     path: 'dodaj-oglas',
     loadChildren: () => import('./dodaj-oglas/dodaj-oglas.module').then( m => m.DodajOglasPageModule)
+  }, {
+    path: 'pretraga',
+    loadChildren: () => import('./pretraga/pretraga.module').then( m => m.PretragaPageModule)
   },
   {
     path: ':id',
