@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {OglasModel} from '../modeli/oglas.model';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -82,10 +84,17 @@ export class OglasiService {
 
   ];
 
-  constructor() { }
+  // oglasiPromena = new Subject<OglasModel[]>();
+
+  constructor(private http: HttpClient) { }
 
   getAllOglasi() {
     return this.listaOglasa;
+    // this.http.get<{oglasi: OglasModel[], poruka: string}>('http://localhost:3000/oglasi')
+    //     .subscribe(podaci => {
+    //       this.listaOglasa = podaci.oglasi;
+    //       this.oglasiPromena.next(this.listaOglasa);
+    //     });
   }
 
   getOglas(id: number) {

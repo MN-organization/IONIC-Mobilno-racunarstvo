@@ -14,7 +14,10 @@ export class OglasiPage implements OnInit {
   constructor(private oglasiService: OglasiService) { }
 
   ngOnInit() {
-    this.oglasi = this.oglasiService.getAllOglasi();
+    // this.oglasiService.oglasiPromena.subscribe(oglasi => {
+    //   this.oglasi = oglasi;
+    // });
+     this.oglasi = this.oglasiService.getAllOglasi();
   }
 
 }
