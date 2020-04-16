@@ -1,0 +1,178 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Prodaja automobila MN
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+                        <ion-item>
+                            <ion-label>Marka</ion-label>
+                            <ion-select value="notifications" interface="action-sheet" name="marka"
+                                        (ionChange)="onSelektovanaMarka($event)"
+                                        formControlName="marka"
+                            >
+                                <ion-select-option *ngFor="let marka of marke;let i=index"
+                                >{{marka.naziv}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Modeli</ion-label>
+                            <ion-select value="notifications" interface="action-sheet" name="model"
+                                        formControlName="model" [disabled]="form.get('marka').value===null">
+                                <ion-select-option *ngFor="let model of selectedMarke">{{model}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Vrsta goriva</ion-label>
+                            <ion-select value="notifications" interface="action-sheet" name="gorivo"
+                                        formControlName="gorivo">
+                                <ion-select-option *ngFor="let goriv of gorivo">{{goriv}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">Cena od:</ion-label>
+                                    <ion-input
+                                            type="number"
+                                            id="cenaOd"
+                                            name="cenaOd"
+                                            formControlName="cenaOd"
+                                    ></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">Cena do:</ion-label>
+                                    <ion-input
+                                            type="number"
+                                            id="cenaDo"
+                                            name="cenaDo"
+                                            formControlName="cenaDo"
+                                    ></ion-input>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">Kilometraza od:</ion-label>
+                                    <ion-input
+                                            type="number"
+                                            id="kmOd"
+                                            name="kmOd"
+                                            formControlName="kmOd"
+                                    ></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">Kilometraza do:</ion-label>
+                                    <ion-input
+                                            type="number"
+                                            id="kmDo"
+                                            name="kmDo"
+                                            formControlName="kmDo"
+                                    ></ion-input>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">Zapremina motora od:</ion-label>
+                                    <ion-input
+                                            type="number"
+                                            id="ccmOd"
+                                            name="ccmOd"
+                                            formControlName="ccmOd"
+                                    ></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">Zapremina motora do:</ion-label>
+                                    <ion-input
+                                            type="number"
+                                            id="ccmDo"
+                                            name="ccmDo"
+                                            formControlName="ccmDo"
+                                    ></ion-input>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">Snaga motora od:</ion-label>
+                                    <ion-input
+                                            type="number"
+                                            id="ksOd"
+                                            name="ksOd"
+                                            formControlName="ksOd"
+                                    ></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">Snaga motora do:</ion-label>
+                                    <ion-input
+                                            type="number"
+                                            id="ksDo"
+                                            name="ksDo"
+                                            formControlName="ksDo"
+                                    ></ion-input>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label>Godiste od</ion-label>
+                                    <ion-select value="notifications" interface="action-sheet" name="godisteOd"
+                                                formControlName="godOd">
+                                        <ion-select-option *ngFor="let god of godista">{{god}}</ion-select-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label>Godiste do</ion-label>
+                                    <ion-select value="notifications" interface="action-sheet" name="godisteDo"
+                                                formControlName="godDo">
+                                        <ion-select-option *ngFor="let god of godista">{{god}}</ion-select-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-radio-group name="menjac" formControlName="menjac">
+                            <ion-list-header>
+                                <ion-label>Vrsta menjaca:</ion-label>
+                            </ion-list-header>
+                            <ion-item *ngFor="let menjac of menjaci">
+                                <ion-label>{{menjac}}</ion-label>
+                                <ion-radio slot="start" color="primary" value="{{menjac}}"></ion-radio>
+                            </ion-item>
+                        </ion-radio-group>
+
+                        <ion-button expand="full"
+                                    type="submit"
+                                    [disabled]="!form.valid"
+                        >Pretrazi
+                        </ion-button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ion-grid>
+</ion-content>
