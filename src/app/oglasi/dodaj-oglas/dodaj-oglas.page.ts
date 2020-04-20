@@ -20,7 +20,7 @@ export class DodajOglasPage implements OnInit {
     izabran: string;
 
     oglas: OglasModel = {
-        id: 0,
+        _id: '',
         naslov: '',
         opis: '',
         cena: 0,

@@ -13,7 +13,7 @@
   <ion-grid>
     <ion-row>
       <ion-col push-lg="3" sizeLg="6" push-md="2" sizeMd="8" sizeXs="12">
-    <app-oglas-element *ngFor="let oglas of oglasi" [oglas]="oglas" [routerLink]="['/', 'oglasi', oglas.id]"></app-oglas-element>
+    <app-oglas-element *ngFor="let oglas of oglasi" [oglas]="oglas" [routerLink]="['/', 'oglasi', oglas._id]"></app-oglas-element>
       </ion-col>
     </ion-row>
   </ion-grid>

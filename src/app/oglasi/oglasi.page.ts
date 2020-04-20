@@ -17,6 +17,7 @@ export class OglasiPage implements OnInit {
     // this.oglasiService.oglasiPromena.subscribe(oglasi => {
     //   this.oglasi = oglasi;
     // });
+
      this.oglasi = this.oglasiService.getAllOglasi();
   }
 

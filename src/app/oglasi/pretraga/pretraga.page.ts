@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MarkaModelService} from '../marka-model.service';
+import {OglasModel} from '../../modeli/oglas.model';
+import {map} from 'rxjs/operators';
+import {HttpParams} from '@angular/common/http';
+import {OglasiService} from '../oglasi.service';
 
 @Component({
     selector: 'app-pretraga',
@@ -23,7 +27,7 @@ export class PretragaPage implements OnInit {
 
     selectedMarke = [];
 
-    constructor(private markaModelService: MarkaModelService) {
+    constructor(private markaModelService: MarkaModelService,private oglasiService:OglasiService) {
     }
 
     ngOnInit() {
@@ -65,6 +69,8 @@ export class PretragaPage implements OnInit {
 
     onSubmit() {
         console.log(this.form.value);
+        this.oglasiService.pretrazi(this.form.value);
+
     }
 
 }

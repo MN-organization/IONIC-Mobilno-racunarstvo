@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {OglasiResolverService} from './oglasi/resolver/oglasi-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'oglasi', pathMatch: 'full' },
   {
-    path: 'oglasi',
+    path: 'oglasi', resolve: {
+      oglasi: OglasiResolverService
+    },
     loadChildren: () => import('./oglasi/oglasi.module').then( m => m.OglasiPageModule)
   },
 ];
