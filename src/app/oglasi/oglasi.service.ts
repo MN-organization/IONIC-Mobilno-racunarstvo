@@ -14,7 +14,7 @@ export class OglasiService {
 
     listaOglasaPretraga: OglasModel[] = [];
 
-    promenaRezultataPretrage=new Subject<OglasModel[]>();
+    promenaRezultataPretrage = new Subject<OglasModel[]>();
 
     constructor(private http: HttpClient) {
     }
@@ -35,19 +35,19 @@ export class OglasiService {
 
     addOglas(oglas: OglasModel) {
         this.http.post<{ oglas: OglasModel, poruka: string }>('http://localhost:3000/oglasi/novi', {
-            naslov: oglas.naslov,
-            opis: oglas.opis,
-            cena: oglas.cena,
-            marka: oglas.marka,
-            model: oglas.model,
-            godiste: oglas.godiste,
-            kilometraza: oglas.kilometraza,
-            vrstaGoriva: oglas.vrstaGoriva,
-            snaga: oglas.snaga,
-            kubikaza: oglas.kubikaza,
-            menjac: oglas.menjac,
-            slika: oglas.slika
-        }).subscribe((podaci) => {
+                naslov: oglas.naslov,
+                opis: oglas.opis,
+                cena: oglas.cena,
+                marka: oglas.marka,
+                model: oglas.model,
+                godiste: oglas.godiste,
+                kilometraza: oglas.kilometraza,
+                vrstaGoriva: oglas.vrstaGoriva,
+                snaga: oglas.snaga,
+                kubikaza: oglas.kubikaza,
+                menjac: oglas.menjac,
+                slika: oglas.slika
+            }).subscribe((podaci) => {
             this.listaOglasa.push(podaci.oglas);
 
         });

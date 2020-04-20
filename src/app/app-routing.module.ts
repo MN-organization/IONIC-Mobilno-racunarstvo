@@ -12,7 +12,11 @@ const routes: Routes = [
   }, {
     path: 'rezultati_pretrage',
     loadChildren: () => import('./oglasi/oglasi.module').then( m => m.OglasiPageModule)
+  },  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
   },
+
 ];
 
 @NgModule({

@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Prodaja automobila MN
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <ion-item>
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input
+                    type="text"
+                    id="email"
+                    ngModel
+                    name="email"
+                    required
+                    email
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input
+                    type="password"
+                    id="password"
+                    ngModel
+                    name="password"
+                    required
+            ></ion-input>
+          </ion-item>
+          <ion-button expand="full"
+                      type="submit"
+                      [disabled]="!f.valid">{{isLogin ? 'Login' : 'Sign up'}}
+          </ion-button>
+          <ion-button expand="full"
+                      type="button"
+                      (click)="promeni()"
+                      >Prebaci na {{!isLogin ? 'Login' : 'Sign up'}}
+          </ion-button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>

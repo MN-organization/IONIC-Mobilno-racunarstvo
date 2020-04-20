@@ -12,7 +12,8 @@ const oglasSchema = mongoose.Schema({
     snaga: Number,
     kubikaza: Number,
     menjac: String,
-    slika: []
+    slika: [],
+    user: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true}
 });
 
 module.exports = mongoose.model("Oglas", oglasSchema);

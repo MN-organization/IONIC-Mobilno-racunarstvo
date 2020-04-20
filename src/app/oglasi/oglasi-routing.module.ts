@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { OglasiPage } from './oglasi.page';
+import {AuthGuardService} from '../auth/auth-guard';
 
 const routes: Routes = [
   {
@@ -9,7 +10,7 @@ const routes: Routes = [
     component: OglasiPage
   },
   {
-    path: 'dodaj-oglas',
+    path: 'dodaj-oglas', canLoad: [AuthGuardService],
     loadChildren: () => import('./dodaj-oglas/dodaj-oglas.module').then( m => m.DodajOglasPageModule)
   }, {
     path: 'pretraga',

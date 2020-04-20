@@ -16,7 +16,7 @@
                     <ion-item>Sacuvani oglasi</ion-item>
                     <ion-item>O nama</ion-item>
                     <ion-item>Podesavanja</ion-item>
-                    <ion-item>Log out</ion-item>
+                    <ion-item (click)="onLogout()" *ngIf="this.authService.token.value">Log out</ion-item>
                 </ion-list>
             </ion-menu-toggle>
         </ion-content>
