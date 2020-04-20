@@ -9,6 +9,9 @@ const routes: Routes = [
       oglasi: OglasiResolverService
     },
     loadChildren: () => import('./oglasi/oglasi.module').then( m => m.OglasiPageModule)
+  }, {
+    path: 'rezultati_pretrage',
+    loadChildren: () => import('./oglasi/oglasi.module').then( m => m.OglasiPageModule)
   },
 ];
 

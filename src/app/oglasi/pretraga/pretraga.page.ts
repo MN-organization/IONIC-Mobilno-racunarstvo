@@ -5,6 +5,7 @@ import {OglasModel} from '../../modeli/oglas.model';
 import {map} from 'rxjs/operators';
 import {HttpParams} from '@angular/common/http';
 import {OglasiService} from '../oglasi.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-pretraga',
@@ -27,7 +28,7 @@ export class PretragaPage implements OnInit {
 
     selectedMarke = [];
 
-    constructor(private markaModelService: MarkaModelService,private oglasiService:OglasiService) {
+    constructor(private markaModelService: MarkaModelService,private oglasiService:OglasiService, private router:Router) {
     }
 
     ngOnInit() {
@@ -70,7 +71,7 @@ export class PretragaPage implements OnInit {
     onSubmit() {
         console.log(this.form.value);
         this.oglasiService.pretrazi(this.form.value);
-
+        this.router.navigate(['/rezultati_pretrage']);
     }
 
 }
