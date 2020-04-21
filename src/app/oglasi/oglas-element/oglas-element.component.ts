@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OglasModel} from '../../modeli/oglas.model';
+import {OglasiService} from '../oglasi.service';
 
 @Component({
   selector: 'app-oglas-element',
@@ -10,8 +11,13 @@ export class OglasElementComponent implements OnInit {
 
   @Input() public oglas: OglasModel;
 
-  constructor() { }
+  @Input() isMyOglas;
+
+  constructor(private oglasiService: OglasiService) { }
 
   ngOnInit() {}
 
+  onDelete() {
+    this.oglasiService.delete(this.oglas._id);
+  }
 }

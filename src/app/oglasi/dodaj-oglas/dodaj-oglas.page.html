@@ -13,45 +13,43 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-                <form (ngSubmit)="onSubmit()" #f="ngForm">
+                <form (ngSubmit)="onSubmit()" [formGroup]="form">
                     <ion-item>
                         <ion-label position="floating">Naslov oglasa:</ion-label>
                         <ion-input
                                 type="text"
                                 id="naslov"
-                                ngModel
+                                formControlName="naslov"
                                 name="naslov"
-                                required
                         ></ion-input>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>Marka</ion-label>
-                        <ion-select value="notifications" interface="action-sheet" ngModel name="marka" required (ionChange)="onSelektovanaMarka($event)"
-                                    #marka="ngModel">
+                        <ion-select value="notifications" interface="action-sheet" name="marka" required (ionChange)="onSelektovanaMarka($event)"
+                                    formControlName="marka">
                             <ion-select-option *ngFor="let marka of marke;let i=index"
                                                >{{marka.naziv}}</ion-select-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
                         <ion-label>Modeli</ion-label>
-                        <ion-select value="notifications" interface="action-sheet" ngModel name="model" required
-                                    [disabled]="marka.invalid">
+                        <ion-select value="notifications" interface="action-sheet" formControlName="model"
+                                    [disabled]=form.controls.marka.invalid>
                             <ion-select-option *ngFor="let model of selectedMarke">{{model}}</ion-select-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
                         <ion-label>Vrsta goriva</ion-label>
-                        <ion-select value="notifications" interface="action-sheet" ngModel name="gorivo">
+                        <ion-select value="notifications" interface="action-sheet" formControlName="gorivo" >
                             <ion-select-option *ngFor="let goriv of gorivo">{{goriv}}</ion-select-option>
                         </ion-select>
                     </ion-item>
                     <div class="form-group">
                       <textarea
-                              name="opis"
                               rows="3"
                               class="form-control"
-                              ngModel
+                              formControlName="opis"
                               placeholder="Opis"></textarea>
                     </div>
 
@@ -60,9 +58,7 @@
                         <ion-input
                                 type="number"
                                 id="cena"
-                                ngModel
-                                name="cena"
-                                required
+                                formControlName="cena"
                         ></ion-input>
                     </ion-item>
 
@@ -71,9 +67,7 @@
                         <ion-input
                                 type="number"
                                 id="km"
-                                ngModel
-                                name="km"
-                                required
+                                formControlName="kilometraza"
                         ></ion-input>
                     </ion-item>
                     <ion-item>
@@ -81,9 +75,8 @@
                         <ion-input
                                 type="number"
                                 id="ccm"
-                                ngModel
+                                formControlName="kubikaza"
                                 name="ccm"
-                                required
                         ></ion-input>
                     </ion-item>
                     <ion-item>
@@ -91,19 +84,17 @@
                         <ion-input
                                 type="number"
                                 id="ks"
-                                ngModel
-                                name="ks"
-                                required
+                                formControlName="snaga"
                         ></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label>Godiste</ion-label>
-                        <ion-select value="notifications" interface="action-sheet" ngModel name="godiste">
+                        <ion-select value="notifications" interface="action-sheet" formControlName="godiste">
                             <ion-select-option *ngFor="let god of godista">{{god}}</ion-select-option>
                         </ion-select>
                     </ion-item>
 
-                    <ion-radio-group ngModel name="menjac">
+                    <ion-radio-group formControlName="menjac" name="menjac">
                         <ion-list-header>
                             <ion-label>Vrsta menjaca:</ion-label>
                         </ion-list-header>
@@ -117,14 +108,12 @@
                         <ion-input
                                 type="text"
                                 id="slika"
-                                ngModel
-                                name="slika"
-                                required
+                                formControlName="slika"
                         ></ion-input>
                     </ion-item>
                     <ion-button expand="full"
                                 type="submit"
-                                [disabled]="!f.valid">Postavi oglas
+                                [disabled]="!form.valid">Postavi oglas
                     </ion-button>
                 </form>
             </div>

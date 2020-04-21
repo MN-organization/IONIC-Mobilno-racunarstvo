@@ -34,7 +34,8 @@
     "mongoose": "^5.9.9",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "mongodb": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.20",

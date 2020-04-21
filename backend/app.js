@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const checkAuth = require("./middleware/chek-auth");
+const objectId = require("mongodb").ObjectId;
 
 const app = express();
 
@@ -31,14 +32,7 @@ app.use((req, res, next) => {
 
 app.get("/oglasi/pretraga", (req, res, next) => {
 
-    console.log(req.url);
     const queryObject = url.parse(req.url, true).query;
-    console.log(queryObject);
-    console.log(queryObject.marka);
-
-    //let query = { $and: [] };
-    //if (queryObject.marka) { query.$and.push({marka: queryObject.marka}); }/////////// full zapis za slozenije upite
-
 
     let query = {};
     if (queryObject.marka) query.marka = queryObject.marka;
@@ -118,15 +112,14 @@ app.get("/oglasi/:id", (req, res, next) => {
 app.delete("/oglasi/:id", (req, res, next) => {
     Oglas.deleteOne({_id: req.params.id}).then(podaci => {
         res.status(200).json({
-            poruka: "Oglas uspesno izbrisan",
-            oglas: podaci
+            poruka: "Oglas uspesno izbrisan"
         });
     });
 });
 
-app.put("/oglasi/:id", (req, res, next) => {
-    console.log(req.body);
-    Oglas.updateOne({_id: req.body.id}, req.body).then(podaci => {
+app.put("/oglasi/:id", checkAuth, (req, res, next) => {
+    Oglas.updateOne({_id: mongoose.Types.ObjectId(req.params.id), user: mongoose.Types.ObjectId(req.token.userId)}, req.body).then(podaci => {
+        console.log(podaci.nModified);
         res.status(200).json({
             poruka: "Oglas uspesno izmenjen",
             oglas: podaci
@@ -162,7 +155,7 @@ app.post("/oglasi/novi", checkAuth, (req, res, next) => {
         user: req.token.userId
     });
     // oglas.userId = req.token.userId;
-    console.log(oglas);
+    // console.log(oglas);
     oglas.save().then(podaci => {
         oglas._id = podaci._id;
         res.status(200).json({
@@ -214,6 +207,16 @@ app.post("/user/login", (req, res, next) => {
         });
     }).catch(err => {
         return res.status(401).json({poruka: 'Autentikacija nije uspela'});
+    });
+});
+
+app.get("/moji_oglasi", checkAuth, (req, res, next) => {
+    const id = mongoose.Types.ObjectId(req.token.userId);
+    Oglas.find({user: id}).then(podaci => {
+        res.status(200).json({
+            poruka: "sve ok, polo kida",
+            oglasi: podaci
+        });
     });
 });
 

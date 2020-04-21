@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: ':id',
     loadChildren: () => import('./oglas-details/oglas-details.module').then( m => m.OglasDetailsPageModule)
+  },
+  {
+    path: ':id/edit',
+    loadChildren: () => import('./dodaj-oglas/dodaj-oglas.module').then( m => m.DodajOglasPageModule)
   }
 ];
 

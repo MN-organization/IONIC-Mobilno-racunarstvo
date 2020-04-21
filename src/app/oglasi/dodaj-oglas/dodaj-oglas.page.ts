@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {FormControl, FormGroup, NgForm} from '@angular/forms';
 import {OglasModel} from '../../modeli/oglas.model';
 import {OglasiService} from '../oglasi.service';
 import {MarkaModelService} from '../marka-model.service';
 import {Subscription} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-dodaj-oglas',
@@ -12,28 +13,18 @@ import {Subscription} from 'rxjs';
 })
 export class DodajOglasPage implements OnInit {
 
-    constructor(private oglasiService: OglasiService, private markaModelService: MarkaModelService) {
+    constructor(private oglasiService: OglasiService,
+                private markaModelService: MarkaModelService,
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
-    @ViewChild('f', {static: false}) addForm: NgForm;
+    // @ViewChild('f', {static: false}) addForm: NgForm;
+    form: FormGroup;
 
     izabran: string;
 
-    oglas: OglasModel = {
-        _id: '',
-        naslov: '',
-        opis: '',
-        cena: 0,
-        vrstaGoriva: '',
-        godiste: 0,
-        kubikaza: 0,
-        kilometraza: 0,
-        slika: [],
-        marka: '',
-        menjac: '',
-        model: '',
-        snaga: 0
-    };
+    oglas: OglasModel = null;
 
     menjaci = ['Manuelni', 'Automatski'];
 
@@ -45,25 +36,22 @@ export class DodajOglasPage implements OnInit {
 
     selectedMarke = [];
 
-    onSubmit() {
-        this.oglas.snaga = this.addForm.value.ks;
-        this.oglas.vrstaGoriva = this.addForm.value.gorivo;
-        this.oglas.slika[0] = this.addForm.value.slika;
-        this.oglas.menjac = this.addForm.value.menjac;
-        this.oglas.godiste = this.addForm.value.godiste;
-        this.oglas.kubikaza = this.addForm.value.ccm;
-        this.oglas.kilometraza = this.addForm.value.km;
-        this.oglas.cena = this.addForm.value.cena;
-        this.oglas.model = this.addForm.value.model;
-        this.oglas.marka = this.addForm.value.marka;
-        this.oglas.opis = this.addForm.value.opis;
-        this.oglas.naslov = this.addForm.value.naslov;
+    edit = false;
 
+    idOglas: string;
+
+    onSubmit() {
+        this.oglas = this.form.value;
         console.log(this.oglas);
 
-        this.oglasiService.addOglas(this.oglas);
-
-        this.addForm.reset();
+        if (this.edit === true) {
+            this.oglas._id = this.idOglas;
+            this.oglasiService.updateOglas(this.oglas);
+        } else {
+            this.oglasiService.addOglas(this.oglas);
+        }
+        this.form.reset();
+        this.router.navigate(['/moji_oglasi']);
     }
 
     ngOnInit(): void {
@@ -73,10 +61,54 @@ export class DodajOglasPage implements OnInit {
         }
         this.marke = this.markaModelService.getAll();
 
+        this.route.paramMap.subscribe((paramMap) => {
+            if (paramMap.has('id')) {
+                this.edit = true;
+                this.idOglas = paramMap.get('id');
+                this.oglasiService.getOglas(this.idOglas)
+                    .subscribe((oglas) => {
+                        this.form.patchValue({model: oglas.model});
+                        // this.oglas._id = oglas._id;
+                        this.form = new FormGroup({
+                            naslov: new FormControl(oglas.naslov),
+                            opis: new FormControl(oglas.opis),
+                            marka: new FormControl(oglas.marka),
+                            model: new FormControl(oglas.model),
+                            cena: new FormControl(oglas.cena),
+                            gorivo: new FormControl(oglas.gorivo),
+                            kilometraza: new FormControl(oglas.kilometraza),
+                            kubikaza: new FormControl(oglas.kubikaza),
+                            godiste: new FormControl(oglas.godiste + ''),
+                            menjac: new FormControl(oglas.menjac),
+                            slika: new FormControl(oglas.slika),
+                            snaga: new FormControl(oglas.snaga)
+                        });
+                        this.onSelektovanaMarka2(oglas.model);
+                        // this.form.patchValue({[this.model]: oglas.model});
+                    });
+            } else {
+                this.edit = false;
+            }
+        });
+
+        this.form = new FormGroup({
+            naslov: new FormControl(null),
+            opis: new FormControl(null),
+            marka: new FormControl(null),
+            model: new FormControl(null),
+            cena: new FormControl(null),
+            gorivo: new FormControl(null),
+            kilometraza: new FormControl(null),
+            kubikaza: new FormControl(null),
+            godiste: new FormControl(null),
+            menjac: new FormControl(null),
+            slika: new FormControl(null),
+            snaga: new FormControl(null)
+        });
     }
 
     onSelektovanaMarka(e) {
-        this.addForm.controls.model.reset();
+        this.form.controls.model.reset();
         this.izabran = e.detail.value;
         for (const m of this.marke) {
             if (m.naziv === this.izabran) {
@@ -85,5 +117,13 @@ export class DodajOglasPage implements OnInit {
         }
     }
 
-
+    onSelektovanaMarka2(model: string) {
+        this.izabran = this.form.value.marka;
+        for (const m of this.marke) {
+            if (m.naziv === this.izabran) {
+                this.selectedMarke = m.model;
+            }
+        }
+        this.form.patchValue({model});
+    }
 }

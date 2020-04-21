@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OglasiService} from './oglasi.service';
 import {OglasModel} from '../modeli/oglas.model';
-import {Router} from '@angular/router';
+import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {filter} from 'rxjs/operators';
 
 @Component({
     selector: 'app-oglasi',
@@ -13,25 +14,34 @@ export class OglasiPage implements OnInit, OnDestroy {
 
     oglasi: OglasModel[] = [];
 
-    promenaRez: Subscription;
+    promena: Subscription;
 
-    constructor(private oglasiService: OglasiService, private route: Router) {
+    isMojiOglasi = false;
+
+    constructor(private oglasiService: OglasiService,
+                private route: Router) {
     }
 
     ngOnInit() {
-        console.log('otvoren oglasi komp');
+        this.promena = this.oglasiService.promena
+            .subscribe(lista => {
+               this.oglasi = lista;
+            });
+    }
+
+    ionViewWillEnter() {
         if (this.route.url === '/oglasi') {
-            this.oglasi = this.oglasiService.getAllOglasi();
-        } else {
-            console.log('otvoreni rezultati pretrage');
-            this.promenaRez = this.oglasiService.promenaRezultataPretrage.subscribe((lista) => this.oglasi = lista);
-            console.log(this.oglasiService.listaOglasaPretraga.length);
+            this.oglasiService.getAllOglasi();
+        } else if (this.route.url === '/moji_oglasi') {
+            this.isMojiOglasi = true;
+            this.oglasiService.getMojiOglasi();
         }
     }
 
     ngOnDestroy(): void {
-        if(this.promenaRez)
-        this.promenaRez.unsubscribe();
+        if (this.promena) {
+            this.promena.unsubscribe();
+        }
     }
 
 }

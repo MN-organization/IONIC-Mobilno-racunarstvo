@@ -8,7 +8,7 @@ const oglasSchema = mongoose.Schema({
     model: String,
     godiste: Number,
     kilometraza: Number,
-    vrstaGoriva: String,
+    gorivo: String,
     snaga: Number,
     kubikaza: Number,
     menjac: String,

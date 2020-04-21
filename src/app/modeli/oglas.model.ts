@@ -7,7 +7,7 @@ export class OglasModel {
     model: string;
     godiste: number;
     kilometraza: number;
-    vrstaGoriva: string;
+    gorivo: string;
     snaga: number;
     kubikaza: number;
     menjac: string;

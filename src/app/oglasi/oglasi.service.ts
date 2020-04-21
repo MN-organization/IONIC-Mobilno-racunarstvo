@@ -14,14 +14,23 @@ export class OglasiService {
 
     listaOglasaPretraga: OglasModel[] = [];
 
-    promenaRezultataPretrage = new Subject<OglasModel[]>();
+    promena = new Subject<OglasModel[]>();
 
     constructor(private http: HttpClient) {
     }
 
+    getMojiOglasi() {
+        this.http.get<{ oglasi: OglasModel[], poruka: string }>('http://localhost:3000/moji_oglasi')
+            .subscribe(podaci => {
+               this.promena.next(podaci.oglasi);
+            });
+    }
+
     getAllOglasi() {
-        console.log('lista popunjena iz servisa');
-        return this.listaOglasa;
+        this.http.get<{ oglasi: OglasModel[], poruka: string }>('http://localhost:3000/oglasi')
+            .subscribe(res => {
+                this.promena.next(res.oglasi);
+            });
     }
 
 
@@ -42,7 +51,7 @@ export class OglasiService {
                 model: oglas.model,
                 godiste: oglas.godiste,
                 kilometraza: oglas.kilometraza,
-                vrstaGoriva: oglas.vrstaGoriva,
+                gorivo: oglas.gorivo,
                 snaga: oglas.snaga,
                 kubikaza: oglas.kubikaza,
                 menjac: oglas.menjac,
@@ -102,8 +111,23 @@ export class OglasiService {
             (response) => {
                 console.log(response);
                 this.listaOglasaPretraga = response.oglas;
-                this.promenaRezultataPretrage.next(this.listaOglasaPretraga);
+                this.promena.next(this.listaOglasaPretraga);
             }
         );
+    }
+
+    delete(oglasId: string) {
+        this.http.delete('http://localhost:3000/oglasi/' + oglasId)
+            .subscribe(poruka => {
+                console.log('deleted');
+                this.getMojiOglasi();
+            });
+    }
+
+    updateOglas(oglas: OglasModel) {
+        this.http.put('http://localhost:3000/oglasi/' + oglas._id, oglas)
+            .subscribe(podaci => {
+                console.log(podaci);
+            });
     }
 }
