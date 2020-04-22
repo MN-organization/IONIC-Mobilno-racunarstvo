@@ -1,9 +1,14 @@
 <ion-card>
+    <ion-grid>
+        <ion-row> <ion-col>
+
+
   <ion-slides pager="true">
     <ion-slide *ngFor="let slicica of oglas.slika">
-      <img [src]="slicica" [routerLink]="['/', 'oglasi', oglas._id] " >
+        <img class="img-fluid" [src]="slicica" [routerLink]="['/', 'oglasi', oglas._id] " >
     </ion-slide>
   </ion-slides>
+            </ion-col><ion-col>
   <ion-card-header>
     <ion-card-title>{{oglas.naslov}}</ion-card-title>
     <ion-card-subtitle>{{oglas.godiste}}. / {{oglas.kilometraza}} km</ion-card-subtitle>
@@ -14,5 +19,8 @@
       </ion-card-content>
       <ion-button *ngIf="isMyOglas" [routerLink]="['/oglasi', oglas._id, 'edit']"><ion-icon name="create-outline"></ion-icon></ion-button>
       <ion-button *ngIf="isMyOglas" (click)="onDelete()"><ion-icon name="trash-outline"></ion-icon></ion-button>
-      <ion-button><ion-icon name="star-outline"></ion-icon></ion-button>
+      <ion-button  (click)="onSacuvaj()"><ion-icon name="star-outline" *ngIf="!isSacuvan"></ion-icon><ion-icon  name="cloud-offline-outline" *ngIf="isSacuvan"></ion-icon></ion-button>
+        </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-card>

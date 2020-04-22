@@ -22,7 +22,7 @@ export class OglasiService {
     getMojiOglasi() {
         this.http.get<{ oglasi: OglasModel[], poruka: string }>('http://localhost:3000/moji_oglasi')
             .subscribe(podaci => {
-               this.promena.next(podaci.oglasi);
+                this.promena.next(podaci.oglasi);
             });
     }
 
@@ -44,19 +44,19 @@ export class OglasiService {
 
     addOglas(oglas: OglasModel) {
         this.http.post<{ oglas: OglasModel, poruka: string }>('http://localhost:3000/oglasi/novi', {
-                naslov: oglas.naslov,
-                opis: oglas.opis,
-                cena: oglas.cena,
-                marka: oglas.marka,
-                model: oglas.model,
-                godiste: oglas.godiste,
-                kilometraza: oglas.kilometraza,
-                gorivo: oglas.gorivo,
-                snaga: oglas.snaga,
-                kubikaza: oglas.kubikaza,
-                menjac: oglas.menjac,
-                slika: oglas.slika
-            }).subscribe((podaci) => {
+            naslov: oglas.naslov,
+            opis: oglas.opis,
+            cena: oglas.cena,
+            marka: oglas.marka,
+            model: oglas.model,
+            godiste: oglas.godiste,
+            kilometraza: oglas.kilometraza,
+            gorivo: oglas.gorivo,
+            snaga: oglas.snaga,
+            kubikaza: oglas.kubikaza,
+            menjac: oglas.menjac,
+            slika: oglas.slika
+        }).subscribe((podaci) => {
             this.listaOglasa.push(podaci.oglas);
 
         });
@@ -128,6 +128,33 @@ export class OglasiService {
         this.http.put('http://localhost:3000/oglasi/' + oglas._id, oglas)
             .subscribe(podaci => {
                 console.log(podaci);
+            });
+    }
+
+    getSacuvaniOglasi() {
+        this.http.get<{ oglasi: OglasModel[], poruka: string }>('http://localhost:3000/sacuvani_oglasi')
+            .subscribe(podaci => {
+                podaci.oglasi.forEach(og => {
+                    og.sacuvan = true;
+                });
+                this.promena.next(podaci.oglasi);
+            });
+    }
+
+    sacuvajOglas(idOglas: string) {
+        console.log(idOglas);
+        this.http.put<{ poruka: string }>('http://localhost:3000/sacuvani_oglasi', {oglasID: idOglas})
+            .subscribe(podaci => {
+                console.log(podaci);
+            });
+    }
+
+
+    izbrisiSacuvanOglas(_id: string) {
+        this.http.put<{ poruka: string }>('http://localhost:3000/sacuvani_oglasi_delete', {oglasID: _id})
+            .subscribe(podaci => {
+                console.log(podaci);
+                this.getSacuvaniOglasi();
             });
     }
 }

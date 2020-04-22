@@ -13,13 +13,14 @@
     <ion-grid>
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+                <div class="col-xs-12 col-sm-10 col-md-8 offset-sm-1 offset-md-2">
                     <form (ngSubmit)="onSubmit()" [formGroup]="form">
                         <ion-item>
                             <ion-label>Marka</ion-label>
                             <ion-select value="notifications" interface="action-sheet" name="marka"
                                         (ionChange)="onSelektovanaMarka($event)"
                                         formControlName="marka"
+                                        (ionCancel)="onMarkaCancel()"
                             >
                                 <ion-select-option *ngFor="let marka of marke;let i=index"
                                 >{{marka.naziv}}</ion-select-option>
@@ -28,14 +29,14 @@
                         <ion-item>
                             <ion-label>Modeli</ion-label>
                             <ion-select value="notifications" interface="action-sheet" name="model"
-                                        formControlName="model" [disabled]="form.get('marka').value===null">
+                                        formControlName="model" [disabled]="form.get('marka').value===null" (ionCancel)="onModeliCancel()">
                                 <ion-select-option *ngFor="let model of selectedMarke">{{model}}</ion-select-option>
                             </ion-select>
                         </ion-item>
                         <ion-item>
                             <ion-label>Vrsta goriva</ion-label>
                             <ion-select value="notifications" interface="action-sheet" name="gorivo"
-                                        formControlName="gorivo">
+                                        formControlName="gorivo" (ionCancel)="onGorivoCancel()">
                                 <ion-select-option *ngFor="let goriv of gorivo">{{goriv}}</ion-select-option>
                             </ion-select>
                         </ion-item>
@@ -140,7 +141,7 @@
                                 <ion-item>
                                     <ion-label>Godiste od</ion-label>
                                     <ion-select value="notifications" interface="action-sheet" name="godisteOd"
-                                                formControlName="godOd">
+                                                formControlName="godOd"  (ionCancel)="onGodisteOdCancel()">
                                         <ion-select-option *ngFor="let god of godista">{{god}}</ion-select-option>
                                     </ion-select>
                                 </ion-item>
@@ -149,7 +150,7 @@
                                 <ion-item>
                                     <ion-label>Godiste do</ion-label>
                                     <ion-select value="notifications" interface="action-sheet" name="godisteDo"
-                                                formControlName="godDo">
+                                                formControlName="godDo" (ionCancel)="onGodisteDoCancel()">
                                         <ion-select-option *ngFor="let god of godista">{{god}}</ion-select-option>
                                     </ion-select>
                                 </ion-item>

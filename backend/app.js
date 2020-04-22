@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 const Oglas = require("./models/oglas");
 const User = require("./models/user");
+const SacuvaniOglasi = require("./models/sacuvaniOglasi");
 
 const url = require('url');
 
@@ -219,5 +220,57 @@ app.get("/moji_oglasi", checkAuth, (req, res, next) => {
         });
     });
 });
+
+app.get("/sacuvani_oglasi",checkAuth,(req, res, next) => {
+    const id = mongoose.Types.ObjectId(req.token.userId);
+    let ids;
+    SacuvaniOglasi.findOne({user: id}).then(podaci => {
+        console.log(podaci);
+        ids=podaci.oglasi;
+        console.log(podaci.oglasi);
+        // let idsKonvertovan=[];
+        // for (let id in ids){
+        //     idsKonvertovan.push(mongoose.Types.ObjectId(id));
+        // }
+       // console.log(idsKonvertovan);
+        Oglas.find({_id:  {$in:ids}}).then(podaci => {
+            console.log(podaci);
+            res.status(200).json({
+                poruka: "vraceni sacuvani oglasi",
+                oglasi: podaci
+            });
+        });
+    });
+
+
+    });
+
+    app.put("/sacuvani_oglasi",checkAuth,(req, res, next) => {
+        console.log(req.body);
+        const id = mongoose.Types.ObjectId(req.token.userId);
+        const idOglas=mongoose.Types.ObjectId(req.body.oglasID);
+        console.log(idOglas)
+        SacuvaniOglasi.updateOne({user: id},{$push : {"oglasi" : idOglas}},{ upsert:true }).then(podaci => {
+            //console.log(podaci);
+            res.status(200).json({
+                poruka: "sacuvan oglas"
+            });
+        });
+});
+
+app.put("/sacuvani_oglasi_delete", checkAuth, (req, res, next) => {
+    const id = mongoose.Types.ObjectId(req.token.userId);
+    const idOglas = mongoose.Types.ObjectId(req.body.oglasID);
+    console.log(idOglas)
+    SacuvaniOglasi.updateOne({user: id}, {$pull: {"oglasi": idOglas}}).then(podaci => {
+        //console.log(podaci);
+        res.status(200).json({
+            poruka: "obrisan oglas"
+        });
+    });
+
+
+});
+
 
 module.exports = app;

@@ -13,6 +13,9 @@ const routes: Routes = [
   },  {
     path: 'moji_oglasi', canLoad: [AuthGuardService],
     loadChildren: () => import('./oglasi/oglasi.module').then( m => m.OglasiPageModule)
+  }, {
+    path: 'sacuvani_oglasi', canLoad: [AuthGuardService],
+    loadChildren: () => import('./oglasi/oglasi.module').then( m => m.OglasiPageModule)
   },
   {
     path: 'auth',

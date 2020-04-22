@@ -12,7 +12,9 @@ export class OglasModel {
     kubikaza: number;
     menjac: string;
     slika: string[];
+    sacuvan = false;
 
-    constructor() {}
+    constructor() {
+    }
 
 }

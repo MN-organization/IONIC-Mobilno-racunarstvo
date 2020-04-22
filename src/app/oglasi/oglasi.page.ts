@@ -25,7 +25,7 @@ export class OglasiPage implements OnInit, OnDestroy {
     ngOnInit() {
         this.promena = this.oglasiService.promena
             .subscribe(lista => {
-               this.oglasi = lista;
+                this.oglasi = lista;
             });
     }
 
@@ -35,6 +35,11 @@ export class OglasiPage implements OnInit, OnDestroy {
         } else if (this.route.url === '/moji_oglasi') {
             this.isMojiOglasi = true;
             this.oglasiService.getMojiOglasi();
+        } else if(this.route.url === '/rezultati_pretrage'){
+            // mora da ostane prazno
+        } else{
+            this.oglasiService.getSacuvaniOglasi();
+
         }
     }
 

@@ -84,7 +84,8 @@ export class DodajOglasPage implements OnInit {
                             snaga: new FormControl(oglas.snaga)
                         });
                         this.onSelektovanaMarka2(oglas.model);
-                        // this.form.patchValue({[this.model]: oglas.model});
+                        console.log(oglas.model);
+                        //this.form.patchValue({model: oglas.model});
                     });
             } else {
                 this.edit = false;
@@ -119,6 +120,7 @@ export class DodajOglasPage implements OnInit {
 
     onSelektovanaMarka2(model: string) {
         this.izabran = this.form.value.marka;
+        //popunjavanje dropdowna za model
         for (const m of this.marke) {
             if (m.naziv === this.izabran) {
                 this.selectedMarke = m.model;

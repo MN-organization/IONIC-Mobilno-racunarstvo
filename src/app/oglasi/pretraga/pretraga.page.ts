@@ -28,7 +28,7 @@ export class PretragaPage implements OnInit {
 
     selectedMarke = [];
 
-    constructor(private markaModelService: MarkaModelService,private oglasiService:OglasiService, private router:Router) {
+    constructor(private markaModelService: MarkaModelService, private oglasiService: OglasiService, private router: Router) {
     }
 
     ngOnInit() {
@@ -73,5 +73,22 @@ export class PretragaPage implements OnInit {
         this.oglasiService.pretrazi(this.form.value);
         this.router.navigate(['/rezultati_pretrage']);
     }
+
+    onGorivoCancel() {
+        this.form.patchValue({gorivo: null});
+    }
+    onMarkaCancel() {
+        this.form.patchValue({marka: null});
+    }
+    onModeliCancel() {
+        this.form.patchValue({model: null});
+    }
+    onGodisteOdCancel() {
+        this.form.patchValue({godOd: null});
+    }
+    onGodisteDoCancel() {
+        this.form.patchValue({godDo: null});
+    }
+
 
 }
