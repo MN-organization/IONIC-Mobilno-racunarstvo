@@ -154,7 +154,7 @@ export class OglasiService {
         this.http.put<{ poruka: string }>('http://localhost:3000/sacuvani_oglasi_delete', {oglasID: _id})
             .subscribe(podaci => {
                 console.log(podaci);
-                this.getSacuvaniOglasi();
+                // this.getSacuvaniOglasi();
             });
     }
 }

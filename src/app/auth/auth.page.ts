@@ -13,6 +13,8 @@ export class AuthPage implements OnInit {
 
   constructor(private authService: AuthService) { }
 
+  message: string;
+
   ngOnInit() {
   }
 
@@ -28,8 +30,15 @@ export class AuthPage implements OnInit {
 
     if (this.isLogin) {
       this.authService.login(f.value.email, f.value.password);
+      this.message = null;
     } else {
-      this.authService.signup(f.value.email, f.value.password);
+      this.authService.signup(f.value.email, f.value.password)
+          .subscribe(podaci => {
+            this.promeni();
+            this.message = 'Uspesno registrovanje';
+          }, error => {
+            this.message = 'Neuspesno registrovanje';
+          });
     }
   }
 }

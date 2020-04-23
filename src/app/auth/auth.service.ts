@@ -14,12 +14,7 @@ export class AuthService {
   token = new BehaviorSubject<{token: string}>(null);
 
   signup(email: string, password: string) {
-    this.http.post<{token: string}>('http://localhost:3000/user/signup', {email, password})
-        .subscribe(podaci => {
-            this.token.next(podaci);
-            localStorage.setItem('userToken', podaci.token);
-            this.router.navigate(['/']);
-        });
+    return this.http.post<{token: string}>('http://localhost:3000/user/signup', {email, password});
   }
 
   login(email: string, password: string) {

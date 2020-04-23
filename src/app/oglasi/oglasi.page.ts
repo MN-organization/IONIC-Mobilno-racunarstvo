@@ -18,6 +18,8 @@ export class OglasiPage implements OnInit, OnDestroy {
 
     isMojiOglasi = false;
 
+    naslov: string;
+
     constructor(private oglasiService: OglasiService,
                 private route: Router) {
     }
@@ -25,6 +27,7 @@ export class OglasiPage implements OnInit, OnDestroy {
     ngOnInit() {
         this.promena = this.oglasiService.promena
             .subscribe(lista => {
+                console.log(lista);
                 this.oglasi = lista;
             });
     }
@@ -32,14 +35,16 @@ export class OglasiPage implements OnInit, OnDestroy {
     ionViewWillEnter() {
         if (this.route.url === '/oglasi') {
             this.oglasiService.getAllOglasi();
+            this.naslov = 'Prodaja automobila MN - oglasi';
         } else if (this.route.url === '/moji_oglasi') {
             this.isMojiOglasi = true;
             this.oglasiService.getMojiOglasi();
-        } else if(this.route.url === '/rezultati_pretrage'){
-            // mora da ostane prazno
-        } else{
+            this.naslov = 'Moji oglasi';
+        } else if (this.route.url === '/rezultati_pretrage'){
+            this.naslov = 'Rezultati pretrage';
+        } else {
             this.oglasiService.getSacuvaniOglasi();
-
+            this.naslov = 'Sacuvani oglasi';
         }
     }
 

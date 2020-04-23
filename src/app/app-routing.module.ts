@@ -11,10 +11,10 @@ const routes: Routes = [
     path: 'rezultati_pretrage',
     loadChildren: () => import('./oglasi/oglasi.module').then( m => m.OglasiPageModule)
   },  {
-    path: 'moji_oglasi', canLoad: [AuthGuardService],
+    path: 'moji_oglasi', canActivate: [AuthGuardService],
     loadChildren: () => import('./oglasi/oglasi.module').then( m => m.OglasiPageModule)
   }, {
-    path: 'sacuvani_oglasi', canLoad: [AuthGuardService],
+    path: 'sacuvani_oglasi', canActivate: [AuthGuardService],
     loadChildren: () => import('./oglasi/oglasi.module').then( m => m.OglasiPageModule)
   },
   {

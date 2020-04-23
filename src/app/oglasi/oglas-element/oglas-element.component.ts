@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OglasModel} from '../../modeli/oglas.model';
 import {OglasiService} from '../oglasi.service';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
     selector: 'app-oglas-element',
@@ -15,7 +16,8 @@ export class OglasElementComponent implements OnInit {
 
     isSacuvan = false;
 
-    constructor(private oglasiService: OglasiService) {
+    constructor(private oglasiService: OglasiService,
+                private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -32,5 +34,6 @@ export class OglasElementComponent implements OnInit {
         } else {
             this.oglasiService.izbrisiSacuvanOglas(this.oglas._id);
         }
+        this.isSacuvan = !this.isSacuvan;
     }
 }

@@ -129,17 +129,46 @@ app.put("/oglasi/:id", checkAuth, (req, res, next) => {
 });
 
 app.get("/oglasi", (req, res, next) => {
-    Oglas.find().then(podaci => {
-        res.status(200).json({
-            poruka: "sve ok, polo kida",
-            oglasi: podaci
-        });
+    Oglas.find().lean().then(sviOglasi => {
+        if(!req.query.auth) {
+            res.status(200).json({
+                poruka: "sve ok, polo kida",
+                oglasi: sviOglasi
+            });
+        } else {
+            const token = req.query.auth;
+            const decodedToken = jwt.verify(token, 'marko_kastratovic_nemanja_kontic');
+            const userId = decodedToken.userId;
+            let idsSacuvani;
+            SacuvaniOglasi.findOne({user: userId}).then(podaci => {
+                if(podaci){
+                    idsSacuvani = podaci.oglasi;
+                    for (let oglas in sviOglasi) {
+                        // console.log(typeof sviOglasi[oglas]._id);
+                        for (let ae in idsSacuvani) {
+                            // console.log(idsSacuvani[ae].__proto__.constructor.name);
+                            if (mongoose.Types.ObjectId(sviOglasi[oglas]._id).equals(mongoose.Types.ObjectId(idsSacuvani[ae]))) {
+                                console.log("usao u if");
+                                sviOglasi[oglas].sacuvan = "da";
+                                console.log(sviOglasi[oglas]);
+                                break;
+                            }
+                        }
+                    }
+                }
+                res.status(200).json({
+                    poruka: "sve ok, polo kida",
+                    oglasi: sviOglasi
+                });
+            });
+        }
     });
 });
 
 
 app.post("/oglasi/novi", checkAuth, (req, res, next) => {
     // req.body.oglas.userId = req.token.userId;
+    console.log("Token: " + req.token);
     let oglas = new Oglas({
         naslov: req.body.naslov,
         marka: req.body.marka,
@@ -178,7 +207,7 @@ app.post("/user/signup", (req, res, next) => {
                 token: token
             });
             }).catch(error => {
-            res.status(409).json({
+            res.status(500).json({
                 error: "vec postoji user"
             });
         });
@@ -221,25 +250,25 @@ app.get("/moji_oglasi", checkAuth, (req, res, next) => {
     });
 });
 
-app.get("/sacuvani_oglasi",checkAuth,(req, res, next) => {
+app.get("/sacuvani_oglasi", checkAuth,(req, res, next) => {
     const id = mongoose.Types.ObjectId(req.token.userId);
     let ids;
     SacuvaniOglasi.findOne({user: id}).then(podaci => {
-        console.log(podaci);
-        ids=podaci.oglasi;
-        console.log(podaci.oglasi);
-        // let idsKonvertovan=[];
-        // for (let id in ids){
-        //     idsKonvertovan.push(mongoose.Types.ObjectId(id));
-        // }
-       // console.log(idsKonvertovan);
-        Oglas.find({_id:  {$in:ids}}).then(podaci => {
-            console.log(podaci);
-            res.status(200).json({
-                poruka: "vraceni sacuvani oglasi",
-                oglasi: podaci
+        if(podaci){
+            ids=podaci.oglasi;
+            Oglas.find({_id:  {$in:ids}}).then(podaci => {
+                console.log(podaci);
+                res.status(200).json({
+                    poruka: "vraceni sacuvani oglasi",
+                    oglasi: podaci
+                });
             });
-        });
+        } else {
+            res.status(200).json({
+                poruka: "nema sacuvanih oglasa",
+                oglasi: []
+            });
+        }
     });
 
 

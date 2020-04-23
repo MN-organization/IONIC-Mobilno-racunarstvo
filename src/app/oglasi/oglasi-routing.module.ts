@@ -10,7 +10,7 @@ const routes: Routes = [
     component: OglasiPage
   },
   {
-    path: 'dodaj-oglas', canLoad: [AuthGuardService],
+    path: 'dodaj-oglas', canActivate: [AuthGuardService],
     loadChildren: () => import('./dodaj-oglas/dodaj-oglas.module').then( m => m.DodajOglasPageModule)
   }, {
     path: 'pretraga',
