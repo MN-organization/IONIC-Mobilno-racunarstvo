@@ -24,8 +24,11 @@
                 <ion-card>
                     <ion-card-header>
                         <ion-card-title>{{oglas?.naslov}}</ion-card-title>
-                        <ion-card-subtitle>{{oglas?.opis}}</ion-card-subtitle>
+                        <ion-card-subtitle class="subtitle">{{oglas?.opis}}</ion-card-subtitle>
                     </ion-card-header>
+                    <ion-row class="zaCenu">
+                        <ion-col>{{oglas?.cena}} €</ion-col>
+                    </ion-row>
                     <ion-card-content>
                         <ion-row>
                             <ion-col>Marka:</ion-col>
@@ -35,10 +38,10 @@
                             <ion-col>Model:</ion-col>
                             <ion-col>{{oglas?.model}}</ion-col>
                         </ion-row>
-                        <ion-row>
-                            <ion-col>Cena:</ion-col>
-                            <ion-col>{{oglas?.cena}} €</ion-col>
-                        </ion-row>
+<!--                        <ion-row>-->
+<!--                            <ion-col>Cena:</ion-col>-->
+<!--                            <ion-col>{{oglas?.cena}} €</ion-col>-->
+<!--                        </ion-row>-->
                         <ion-row>
                             <ion-col>Kilometraza:</ion-col>
                             <ion-col>{{oglas?.kilometraza}} km</ion-col>

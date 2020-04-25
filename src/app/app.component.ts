@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -10,7 +10,7 @@ import {AuthService} from './auth/auth.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -30,5 +30,13 @@ export class AppComponent {
 
     onLogout() {
         this.authService.logout();
+    }
+
+  ngOnInit(): void {
+    this.authService.autoLogin();
+  }
+
+    onDarkMode() {
+        window.matchMedia('(prefers-color-scheme: dark)');
     }
 }

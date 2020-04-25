@@ -31,4 +31,13 @@ export class AuthService {
       localStorage.removeItem('userToken');
       this.router.navigate(['/auth']);
   }
+
+  autoLogin() {
+      const token = localStorage.getItem('userToken');
+      console.log('token: ' + token);
+      if (!token) {
+          return;
+      }
+      this.token.next({token});
+  }
 }

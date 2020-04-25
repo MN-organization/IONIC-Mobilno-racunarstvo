@@ -1,21 +1,32 @@
-<ion-header [translucent]="true">
+<ion-header translucent="">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="zaNaslov">
       {{naslov}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col push-lg="3" sizeLg="6" push-md="2" sizeMd="8" sizeXs="12">
-    <app-oglas-element *ngFor="let oglas of oglasi" [oglas]="oglas" [isMyOglas]="isMojiOglasi"></app-oglas-element>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+  <ion-content [fullscreen]="true" class="background-image" [scrollEvents]="true" >
+    <ion-grid>
+      <ion-row *ngIf="pocetna" class="container">
+            <ion-col class="jumbotron-fluid">
+                <div id="jumbo" class="d-flex flex-column align-items-sm-center justify-content-center">
+                    <h1 class="display-5">AUTO-PLAC MN</h1>
+                    <p id="paragraf" class="lead">Najveci izbor polovnih automobila u Beogradu i siroj okolini.</p>
+                    <hr class="my-4">
+                    <a class="btn btn-light btn-outline-primary btn-lg" [routerLink]="['/','oglasi','pretraga']" role="button">Pretraga automobila</a>
+                </div>
+            </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col push-lg="3" sizeLg="6" push-md="2" sizeMd="8" sizeXs="12">
+      <app-oglas-element *ngFor="let oglas of oglasi" [oglas]="oglas" [isMyOglas]="isMojiOglasi" [routerLink]="['/', 'oglasi', oglas._id] "></app-oglas-element>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+
 

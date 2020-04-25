@@ -24,11 +24,20 @@ export class OglasElementComponent implements OnInit {
         this.isSacuvan = this.oglas.sacuvan;
     }
 
-    onDelete() {
+    onEdit(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
+    onDelete(e) {
+        e.stopPropagation();
+        e.preventDefault();
         this.oglasiService.delete(this.oglas._id);
     }
 
-    onSacuvaj() {
+    onSacuvaj(e) {
+        e.stopPropagation();
+        e.preventDefault();
         if (!this.isSacuvan) {
             this.oglasiService.sacuvajOglas(this.oglas._id);
         } else {

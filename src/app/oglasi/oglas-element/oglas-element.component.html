@@ -1,10 +1,10 @@
-<ion-card class="shadow-lg">
+<ion-card>
     <ion-grid>
-        <ion-row class="d-flex align-items-center">
+        <ion-row >
             <ion-col size-md="6" size-sm="6" size-xs="12">
                 <ion-slides pager="true">
                     <ion-slide *ngFor="let slicica of oglas.slika">
-                        <img class="img-responsive" [src]="slicica" [routerLink]="['/', 'oglasi', oglas._id] ">
+                        <img class="img-responsive" [src]="slicica">
                     </ion-slide>
                 </ion-slides>
             </ion-col>
@@ -17,13 +17,13 @@
                 <ion-card-content>
                     {{oglas.cena}} €
                 </ion-card-content>
-                <ion-button *ngIf="isMyOglas" [routerLink]="['/oglasi', oglas._id, 'edit']">
+                <ion-button *ngIf="isMyOglas" (click)="onEdit($event)" [routerLink]="['/oglasi', oglas._id, 'edit']">
                     <ion-icon name="create-outline"></ion-icon>
                 </ion-button>
-                <ion-button *ngIf="isMyOglas" (click)="onDelete()">
+                <ion-button *ngIf="isMyOglas" (click)="onDelete($event)">
                     <ion-icon name="trash-outline"></ion-icon>
                 </ion-button>
-                <ion-button *ngIf="this.authService.token.value && !isMyOglas" (click)="onSacuvaj()">
+                <ion-button *ngIf="this.authService.token.value && !isMyOglas" (click)="onSacuvaj($event)">
                     <ion-icon name="star-outline" *ngIf="!isSacuvan"></ion-icon>
                     <ion-icon name="cloud-offline-outline" *ngIf="isSacuvan"></ion-icon>
                 </ion-button>

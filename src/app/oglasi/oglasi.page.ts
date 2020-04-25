@@ -20,6 +20,8 @@ export class OglasiPage implements OnInit, OnDestroy {
 
     naslov: string;
 
+    pocetna = false;
+
     constructor(private oglasiService: OglasiService,
                 private route: Router) {
     }
@@ -36,6 +38,7 @@ export class OglasiPage implements OnInit, OnDestroy {
         if (this.route.url === '/oglasi') {
             this.oglasiService.getAllOglasi();
             this.naslov = 'Prodaja automobila MN - oglasi';
+            this.pocetna = true;
         } else if (this.route.url === '/moji_oglasi') {
             this.isMojiOglasi = true;
             this.oglasiService.getMojiOglasi();
@@ -53,5 +56,6 @@ export class OglasiPage implements OnInit, OnDestroy {
             this.promena.unsubscribe();
         }
     }
+
 
 }
