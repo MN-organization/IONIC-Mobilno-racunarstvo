@@ -25,7 +25,7 @@
                 </ion-button>
                 <ion-button *ngIf="this.authService.token.value && !isMyOglas" (click)="onSacuvaj($event)">
                     <ion-icon name="star-outline" *ngIf="!isSacuvan"></ion-icon>
-                    <ion-icon name="cloud-offline-outline" *ngIf="isSacuvan"></ion-icon>
+                    <ion-icon name="star" *ngIf="isSacuvan"></ion-icon>
                 </ion-button>
             </ion-col>
         </ion-row>

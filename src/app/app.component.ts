@@ -36,7 +36,4 @@ export class AppComponent implements OnInit{
     this.authService.autoLogin();
   }
 
-    onDarkMode() {
-        window.matchMedia('(prefers-color-scheme: dark)');
-    }
 }
