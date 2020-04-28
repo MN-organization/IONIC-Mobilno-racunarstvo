@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
+import {BackendConst} from '../backend-const';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,11 @@ export class AuthService {
   token = new BehaviorSubject<{token: string}>(null);
 
   signup(email: string, password: string) {
-    return this.http.post<{token: string}>('http://localhost:3000/user/signup', {email, password});
+    return this.http.post<{token: string}>(BackendConst.backendAddress + '/user/signup', {email, password});
   }
 
   login(email: string, password: string) {
-    this.http.post<{token: string}>('http://localhost:3000/user/login', {email, password})
+    this.http.post<{token: string}>(BackendConst.backendAddress + '/user/login', {email, password})
         .subscribe(podaci => {
             this.token.next(podaci);
             localStorage.setItem('userToken', podaci.token);

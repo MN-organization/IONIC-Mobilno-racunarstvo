@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {OglasModel} from '../modeli/oglas.model';
-import {HttpClient, HttpClientModule, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import {BackendConst} from '../backend-const';
 
 @Injectable({
     providedIn: 'root'
@@ -20,14 +20,14 @@ export class OglasiService {
     }
 
     getMojiOglasi() {
-        this.http.get<{ oglasi: OglasModel[], poruka: string }>('http://localhost:3000/moji_oglasi')
+        this.http.get<{ oglasi: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/moji_oglasi')
             .subscribe(podaci => {
                 this.promena.next(podaci.oglasi);
             });
     }
 
     getAllOglasi() {
-        this.http.get<{ oglasi: OglasModel[], poruka: string }>('http://localhost:3000/oglasi')
+        this.http.get<{ oglasi: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/oglasi')
             .subscribe(res => {
                 this.promena.next(res.oglasi);
             });
@@ -35,7 +35,7 @@ export class OglasiService {
 
 
     getOglas(id: string) {
-        return this.http.get<{ oglas: OglasModel, poruka: string }>('http://localhost:3000/oglasi/' + id).pipe(
+        return this.http.get<{ oglas: OglasModel, poruka: string }>(BackendConst.backendAddress + '/oglasi/' + id).pipe(
             map(res => {
                 return res.oglas;
             })
@@ -43,7 +43,7 @@ export class OglasiService {
     }
 
     addOglas(oglas: OglasModel) {
-        this.http.post<{ oglas: OglasModel, poruka: string }>('http://localhost:3000/oglasi/novi', {
+        this.http.post<{ oglas: OglasModel, poruka: string }>(BackendConst.backendAddress + '/oglasi/novi', {
             naslov: oglas.naslov,
             opis: oglas.opis,
             cena: oglas.cena,
@@ -58,7 +58,6 @@ export class OglasiService {
             slika: oglas.slika
         }).subscribe((podaci) => {
             this.listaOglasa.push(podaci.oglas);
-
         });
     }
 
@@ -107,7 +106,7 @@ export class OglasiService {
         if (forma.menjac) {
             params = params.append('menjac', forma.menjac);
         }
-        return this.http.get<{ oglas: OglasModel[], poruka: string }>('http://localhost:3000/oglasi/pretraga', {params}).subscribe(
+        return this.http.get<{ oglas: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/oglasi/pretraga', {params}).subscribe(
             (response) => {
                 console.log(response);
                 this.listaOglasaPretraga = response.oglas;
@@ -117,7 +116,7 @@ export class OglasiService {
     }
 
     delete(oglasId: string) {
-        this.http.delete('http://localhost:3000/oglasi/' + oglasId)
+        this.http.delete(BackendConst.backendAddress + '/oglasi/' + oglasId)
             .subscribe(poruka => {
                 console.log('deleted');
                 this.getMojiOglasi();
@@ -125,14 +124,14 @@ export class OglasiService {
     }
 
     updateOglas(oglas: OglasModel) {
-        this.http.put('http://localhost:3000/oglasi/' + oglas._id, oglas)
+        this.http.put(BackendConst.backendAddress + '/oglasi/' + oglas._id, oglas)
             .subscribe(podaci => {
                 console.log(podaci);
             });
     }
 
     getSacuvaniOglasi() {
-        this.http.get<{ oglasi: OglasModel[], poruka: string }>('http://localhost:3000/sacuvani_oglasi')
+        this.http.get<{ oglasi: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/sacuvani_oglasi')
             .subscribe(podaci => {
                 podaci.oglasi.forEach(og => {
                     og.sacuvan = true;
@@ -143,7 +142,7 @@ export class OglasiService {
 
     sacuvajOglas(idOglas: string) {
         console.log(idOglas);
-        this.http.put<{ poruka: string }>('http://localhost:3000/sacuvani_oglasi', {oglasID: idOglas})
+        this.http.put<{ poruka: string }>(BackendConst.backendAddress + '/sacuvani_oglasi', {oglasID: idOglas})
             .subscribe(podaci => {
                 console.log(podaci);
             });
@@ -151,7 +150,7 @@ export class OglasiService {
 
 
     izbrisiSacuvanOglas(_id: string) {
-        this.http.put<{ poruka: string }>('http://localhost:3000/sacuvani_oglasi_delete', {oglasID: _id})
+        this.http.put<{ poruka: string }>(BackendConst.backendAddress + '/sacuvani_oglasi_delete', {oglasID: _id})
             .subscribe(podaci => {
                 console.log(podaci);
                 // this.getSacuvaniOglasi();
