@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MarkaModelService} from '../marka-model.service';
-import {OglasModel} from '../../modeli/oglas.model';
-import {map} from 'rxjs/operators';
-import {HttpParams} from '@angular/common/http';
 import {OglasiService} from '../oglasi.service';
 import {Router} from '@angular/router';
 

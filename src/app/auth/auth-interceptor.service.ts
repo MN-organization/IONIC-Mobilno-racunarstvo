@@ -6,7 +6,8 @@ import {exhaustMap, take} from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) {
+    }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return this.authService.token.pipe(
@@ -15,8 +16,11 @@ export class AuthInterceptor implements HttpInterceptor {
                 if (!token) {
                     return next.handle(req);
                 }
-                const modifiedReq = req.clone({params: new HttpParams().set('auth', token.token)});
-                return next.handle(modifiedReq);
+                let params = req.params;
+                params.append('auth', token.token);
+                // const modifiedReq = req.clone({params: new HttpParams().set('auth', token.token)});
+                // return next.handle(modifieldReq);
+                return next.handle(req);
             }));
     }
 
