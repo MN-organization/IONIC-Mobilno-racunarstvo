@@ -63,55 +63,50 @@ export class OglasiService {
 
 
     pretrazi(forma: any) {
-        // let params = new HttpParams();
-        // tslint:disable-next-line:prefer-const ban-types
-        let oglas: Map<string, string> = new Map<string, string>();
+        let params = new HttpParams();
         if (forma.marka) {
-            // params = params.append('marka', forma.marka);
-            oglas.set('marka', forma.marka);
+            params = params.append('marka', forma.marka);
         }
         if (forma.model) {
-            // params = params.append('model', forma.model);
-            oglas.set('model', forma.model);
+            params = params.append('model', forma.model);
         }
         if (forma.gorivo) {
-            // params = params.append('gorivo', forma.gorivo);
+            params = params.append('gorivo', forma.gorivo);
         }
         if (forma.cenaOd) {
-            // params = params.append('cenaOd', forma.cenaOd);
+            params = params.append('cenaOd', forma.cenaOd);
         }
         if (forma.cenaDo) {
-            // params = params.append('cenaDo', forma.cenaDo);
+            params = params.append('cenaDo', forma.cenaDo);
         }
         if (forma.kmOd) {
-            // params = params.append('kmOd', forma.kmOd);
+            params = params.append('kmOd', forma.kmOd);
         }
         if (forma.kmDo) {
-            // params = params.append('kmDo', forma.kmDo);
+            params = params.append('kmDo', forma.kmDo);
         }
         if (forma.ccmOd) {
-            // params = params.append('ccmOd', forma.ccmOd);
+            params = params.append('ccmOd', forma.ccmOd);
         }
         if (forma.ccmDo) {
-            // params = params.append('ccmDo', forma.ccmDo);
+            params = params.append('ccmDo', forma.ccmDo);
         }
         if (forma.ksOd) {
-            // params = params.append('ksOd', forma.ksOd);
+            params = params.append('ksOd', forma.ksOd);
         }
         if (forma.ksDo) {
-            // params = params.append('ksDo', forma.ksDo);
+            params = params.append('ksDo', forma.ksDo);
         }
         if (forma.godOd) {
-            // params = params.append('godOd', forma.godOd);
+            params = params.append('godOd', forma.godOd);
         }
         if (forma.godDo) {
-            // params = params.append('godDo', forma.godDo);
+            params = params.append('godDo', forma.godDo);
         }
         if (forma.menjac) {
-            // params = params.append('menjac', forma.menjac);
+            params = params.append('menjac', forma.menjac);
         }
-        console.log(oglas);
-        return this.http.post<{ oglas: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/oglasi/pretraga', {oglas}).subscribe(
+        return this.http.get<{ oglas: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/oglasi/pretraga', {params}).subscribe(
             (response) => {
                 console.log(response);
                 this.listaOglasaPretraga = response.oglas;
