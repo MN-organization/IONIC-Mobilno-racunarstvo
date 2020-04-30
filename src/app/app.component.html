@@ -15,7 +15,7 @@
                     <ion-item [routerLink]="['/','moji_oglasi']"><ion-icon class="mr-3" name="documents-outline"></ion-icon>Moji oglasi</ion-item>
                     <ion-item [routerLink]="['/','sacuvani_oglasi']"><ion-icon class="mr-3" name="bookmark-outline"></ion-icon>Sacuvani oglasi</ion-item>
                     <ion-item><ion-icon class="mr-3" name="people-outline"></ion-icon>O nama</ion-item>
-                    <ion-item><ion-icon class="mr-3" name="moon-outline"></ion-icon>Dark mode<ion-toggle color="primary"></ion-toggle></ion-item>
+                    <ion-item (click)="onDarkMode()"><ion-icon class="mr-3" name="moon-outline"></ion-icon>Dark mode<ion-toggle color="primary"></ion-toggle></ion-item>
                     <ion-item (click)="onLogout()" *ngIf="this.authService.token.value"><ion-icon class="mr-3" name="log-out-outline"></ion-icon>Log out</ion-item>
                 </ion-list>
             </ion-menu-toggle>

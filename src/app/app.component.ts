@@ -38,7 +38,7 @@ export class AppComponent implements OnInit{
     this.authService.autoLogin();
   }
 
-  // onDarkMode() {
-  //   this.themeService.toggleAppTheme();
-  // }
+  onDarkMode() {
+    this.themeService.toggleAppTheme();
+  }
 }
