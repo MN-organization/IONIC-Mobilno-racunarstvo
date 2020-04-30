@@ -14,7 +14,6 @@ export class OglasiService {
 
     listaOglasaPretraga: OglasModel[] = [];
 
-    listaSacuvanih: OglasModel[] = [];
 
     promena = new Subject<OglasModel[]>();
 
@@ -38,6 +37,7 @@ export class OglasiService {
             .subscribe(res => {
                 this.promena.next(res.oglasi);
                 this.isLoadingSubject.next(false);
+                console.log(res.oglasi);
             });
     }
 
@@ -150,7 +150,6 @@ export class OglasiService {
                     og.sacuvan = true;
                 });
                 this.isLoadingSubject.next(false);
-                this.listaSacuvanih = podaci.oglasi;
                 this.promena.next(podaci.oglasi);
             });
     }
@@ -170,15 +169,5 @@ export class OglasiService {
                 console.log(podaci);
                 // this.getSacuvaniOglasi();
             });
-    }
-
-    izbaciSacuvani(id: string) {
-        for (let i = 0; i < this.listaSacuvanih.length; i++) {
-            if (this.listaSacuvanih[i]._id === id) {
-                this.listaSacuvanih.splice(i, 1);
-                this.promena.next(this.listaSacuvanih);
-                return;
-            }
-        }
     }
 }

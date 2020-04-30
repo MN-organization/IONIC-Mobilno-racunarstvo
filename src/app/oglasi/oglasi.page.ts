@@ -31,7 +31,6 @@ export class OglasiPage implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.isloadingSub = this.oglasiService.isLoadingSubject.subscribe(bul => {
-            console.log(bul);
             this.isLoading = bul;
         });
         this.promena = this.oglasiService.promena
@@ -55,15 +54,6 @@ export class OglasiPage implements OnInit, OnDestroy {
         } else {
             this.oglasiService.getSacuvaniOglasi();
             this.naslov = 'Sacuvani oglasi';
-        }
-    }
-
-    ionViewWillLeave() {
-        if (this.promena) {
-            this.promena.unsubscribe();
-        }
-        if (this.isloadingSub) {
-            this.isloadingSub.unsubscribe();
         }
     }
 
