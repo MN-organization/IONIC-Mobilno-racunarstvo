@@ -13,7 +13,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-md-6 offset-sm-1 offset-md-3 mt-5">
-        <ion-chip *ngIf="message" [color]="this.message === 'Neuspesno registrovanje' ? 'danger' : 'success'" class="w-100">{{message}}</ion-chip>
+        <ion-chip *ngIf="message" [color]="this.message === 'Uspesno registrovanje' ? 'success' : 'danger'" class="w-100">{{message}}</ion-chip>
         <form #f="ngForm" (ngSubmit)="onSubmit(f)">
           <ion-item>
             <ion-label position="floating">E-mail</ion-label>

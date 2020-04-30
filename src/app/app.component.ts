@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {AuthService} from './auth/auth.service';
+import {ThemeService} from './theme.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit{
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authService: AuthService
+    private authService: AuthService,
+    private themeService: ThemeService
   ) {
     this.initializeApp();
   }
@@ -36,4 +38,7 @@ export class AppComponent implements OnInit{
     this.authService.autoLogin();
   }
 
+  // onDarkMode() {
+  //   this.themeService.toggleAppTheme();
+  // }
 }

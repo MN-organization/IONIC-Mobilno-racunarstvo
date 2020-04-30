@@ -16,6 +16,9 @@ export class AuthPage implements OnInit {
   message: string;
 
   ngOnInit() {
+    this.authService.greska.subscribe(poruka => {
+      this.message = poruka;
+    });
   }
 
   promeni() {
@@ -29,8 +32,9 @@ export class AuthPage implements OnInit {
     }
 
     if (this.isLogin) {
-      this.authService.login(f.value.email, f.value.password);
       this.message = null;
+      this.authService.login(f.value.email, f.value.password);
+      // this.message = null;
     } else {
       this.authService.signup(f.value.email, f.value.password)
           .subscribe(podaci => {

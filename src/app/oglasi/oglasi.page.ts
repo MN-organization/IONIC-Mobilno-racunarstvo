@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OglasiService} from './oglasi.service';
 import {OglasModel} from '../modeli/oglas.model';
-import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
+import { Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {filter} from 'rxjs/operators';
 
 @Component({
     selector: 'app-oglasi',
@@ -22,11 +21,19 @@ export class OglasiPage implements OnInit, OnDestroy {
 
     pocetna = false;
 
+    isLoading = false;
+
+    isloadingSub: Subscription;
+
     constructor(private oglasiService: OglasiService,
                 private route: Router) {
     }
 
     ngOnInit() {
+        this.isloadingSub = this.oglasiService.isLoadingSubject.subscribe(bul => {
+            console.log(bul);
+            this.isLoading = bul;
+        });
         this.promena = this.oglasiService.promena
             .subscribe(lista => {
                 console.log(lista);
@@ -51,9 +58,21 @@ export class OglasiPage implements OnInit, OnDestroy {
         }
     }
 
+    ionViewWillLeave() {
+        if (this.promena) {
+            this.promena.unsubscribe();
+        }
+        if (this.isloadingSub) {
+            this.isloadingSub.unsubscribe();
+        }
+    }
+
     ngOnDestroy(): void {
         if (this.promena) {
             this.promena.unsubscribe();
+        }
+        if (this.isloadingSub) {
+            this.isloadingSub.unsubscribe();
         }
     }
 

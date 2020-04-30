@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {BackendConst} from '../backend-const';
 
@@ -13,6 +13,7 @@ export class AuthService {
               private router: Router) { }
 
   token = new BehaviorSubject<{token: string}>(null);
+  greska = new Subject<string>();
 
   signup(email: string, password: string) {
     return this.http.post<{token: string}>(BackendConst.backendAddress + '/user/signup', {email, password});
@@ -24,6 +25,9 @@ export class AuthService {
             this.token.next(podaci);
             localStorage.setItem('userToken', podaci.token);
             this.router.navigate(['/']);
+        }, error => {
+            console.log(error.error.poruka);
+            this.greska.next('Uneti podaci nisu dobri');
         });
   }
 

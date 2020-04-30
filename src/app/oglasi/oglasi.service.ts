@@ -14,30 +14,40 @@ export class OglasiService {
 
     listaOglasaPretraga: OglasModel[] = [];
 
+    listaSacuvanih: OglasModel[] = [];
+
     promena = new Subject<OglasModel[]>();
+
+    isLoadingSubject = new Subject<boolean>();
 
     constructor(private http: HttpClient) {
     }
 
     getMojiOglasi() {
+        this.isLoadingSubject.next(true);
         this.http.get<{ oglasi: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/moji_oglasi')
             .subscribe(podaci => {
+                this.isLoadingSubject.next(false);
                 this.promena.next(podaci.oglasi);
             });
     }
 
     getAllOglasi() {
+        this.isLoadingSubject.next(true);
         this.http.get<{ oglasi: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/oglasi')
             .subscribe(res => {
                 this.promena.next(res.oglasi);
+                this.isLoadingSubject.next(false);
             });
     }
 
 
     getOglas(id: string) {
+        this.isLoadingSubject.next(true);
         return this.http.get<{ oglas: OglasModel, poruka: string }>(BackendConst.backendAddress + '/oglasi/' + id).pipe(
             map(res => {
                 return res.oglas;
+                this.isLoadingSubject.next(false);
             })
         );
     }
@@ -106,9 +116,11 @@ export class OglasiService {
         if (forma.menjac) {
             params = params.append('menjac', forma.menjac);
         }
+        this.isLoadingSubject.next(true);
         return this.http.get<{ oglas: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/oglasi/pretraga', {params}).subscribe(
             (response) => {
                 console.log(response);
+                this.isLoadingSubject.next(false);
                 this.listaOglasaPretraga = response.oglas;
                 this.promena.next(this.listaOglasaPretraga);
             }
@@ -131,11 +143,14 @@ export class OglasiService {
     }
 
     getSacuvaniOglasi() {
+        this.isLoadingSubject.next(true);
         this.http.get<{ oglasi: OglasModel[], poruka: string }>(BackendConst.backendAddress + '/sacuvani_oglasi')
             .subscribe(podaci => {
                 podaci.oglasi.forEach(og => {
                     og.sacuvan = true;
                 });
+                this.isLoadingSubject.next(false);
+                this.listaSacuvanih = podaci.oglasi;
                 this.promena.next(podaci.oglasi);
             });
     }
@@ -155,5 +170,15 @@ export class OglasiService {
                 console.log(podaci);
                 // this.getSacuvaniOglasi();
             });
+    }
+
+    izbaciSacuvani(id: string) {
+        for (let i = 0; i < this.listaSacuvanih.length; i++) {
+            if (this.listaSacuvanih[i]._id === id) {
+                this.listaSacuvanih.splice(i, 1);
+                this.promena.next(this.listaSacuvanih);
+                return;
+            }
+        }
     }
 }

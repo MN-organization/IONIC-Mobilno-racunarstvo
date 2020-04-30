@@ -42,6 +42,7 @@ export class OglasElementComponent implements OnInit {
             this.oglasiService.sacuvajOglas(this.oglas._id);
         } else {
             this.oglasiService.izbrisiSacuvanOglas(this.oglas._id);
+            this.oglasiService.izbaciSacuvani(this.oglas._id);
         }
         this.isSacuvan = !this.isSacuvan;
     }
