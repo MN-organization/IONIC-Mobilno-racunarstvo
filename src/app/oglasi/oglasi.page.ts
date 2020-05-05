@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OglasiService} from './oglasi.service';
 import {OglasModel} from '../modeli/oglas.model';
-import { Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -49,8 +49,13 @@ export class OglasiPage implements OnInit, OnDestroy {
             this.isMojiOglasi = true;
             this.oglasiService.getMojiOglasi();
             this.naslov = 'Moji oglasi';
-        } else if (this.route.url === '/rezultati_pretrage'){
+        } else if (this.route.url === '/rezultati_pretrage') {
             this.naslov = 'Rezultati pretrage';
+            console.log('stari rezultati');
+            this.oglasi = this.oglasiService.listaOglasaPretraga;
+            setTimeout(() => {
+                this.isLoading = false;
+            }, 500);//ako za 500ms ne stignu novi rezultati pretrage,prikaze stare
         } else {
             this.oglasiService.getSacuvaniOglasi();
             this.naslov = 'Sacuvani oglasi';

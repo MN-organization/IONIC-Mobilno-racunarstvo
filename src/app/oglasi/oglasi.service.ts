@@ -66,9 +66,9 @@ export class OglasiService {
             kubikaza: oglas.kubikaza,
             menjac: oglas.menjac,
             slika: oglas.slika
-        }).subscribe((podaci) => {
-            this.listaOglasa.push(podaci.oglas);
-        });
+        }).subscribe(//(podaci) => {
+            //this.listaOglasa.push(podaci.oglas);}
+        );
     }
 
 
